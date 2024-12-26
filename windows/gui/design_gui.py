@@ -2,7 +2,8 @@ from customtkinter import CTk as ctk #Class for customtkinter widgets
 from customtkinter import CTkFrame as ctkf #Class for customtkinter widgets
 from customtkinter import CTkButton as ctkb # Import CTkButton for the button widget
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
-from custom_window import color_pallete #Function for color pallete
+from widget.custom_window import color_pallete #Function for color pallete
+from widget.graphTankModule import graph_oil_window #Function for graph tank module
 
 class Gui(ctk):
     def __init__(self):
@@ -114,6 +115,8 @@ class Gui(ctk):
         self.frame_center.place(
             relx=0.37, rely=0.5, anchor='center'
         )
+
+        graph_oil_window(self.frame_center)
     
     def create_frame_right(self, color):
         """Create the right frame of the application."""
