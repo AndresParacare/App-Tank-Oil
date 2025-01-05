@@ -2,7 +2,7 @@ from customtkinter import CTk as ctk #Class for customtkinter widgets
 from customtkinter import CTkFrame as ctkf #Class for customtkinter widgets
 from customtkinter import CTkButton as ctkb # Import CTkButton for the button widget
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
-from widget.custom_window import color_pallete #Function for color pallete
+from utility.custom_window import color_pallete #Function for color pallete
 from widget.graphTankModule import graph_oil_window #Function for graph tank module
 
 class Gui(ctk):
