@@ -188,7 +188,3 @@ class LoginDesign(ctk.CTk):
         ).pack(
             anchor="w", pady=(5, 0), padx=(padx-29, 0)
             )
-
-#ELIMINAR AL FINALIZAR
-app = LoginDesign()
-app.mainloop()

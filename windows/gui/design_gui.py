@@ -2,8 +2,8 @@ from customtkinter import CTk as ctk #Class for customtkinter widgets
 from customtkinter import CTkFrame as ctkf #Class for customtkinter widgets
 from customtkinter import CTkButton as ctkb # Import CTkButton for the button widget
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
-from utility.custom_window import color_pallete #Function for color pallete
-from widget.graphTankModule import graph_oil_window #Function for graph tank module
+from windows.gui.utility.custom_window import color_pallete #Function for color pallete
+from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 
 class Gui(ctk):
     def __init__(self):
@@ -31,10 +31,9 @@ class Gui(ctk):
         
         #Create the frames of the application
         self.create_frame_up(color)
-        self.create_frame_down(color)
+        self.bar_gray(color)
         self.create_frame_center(color)
         self.create_frame_right(color)
-        print(color[0])
         
 
     def create_frame_up(self, color):
@@ -89,46 +88,47 @@ class Gui(ctk):
             relx=0.1, rely=0.5, anchor='center'
         )
 
-    def create_frame_down(self, color):
-        """Create the lower frame of the application."""
-        self.frame_down = ctkf(
+    def bar_gray(self, color):
+        """Create bar with gray color"""
+        self.bar_gray = ctkf(
             self,
-            width=250,
-            height=35,
-            corner_radius=60,
+            width=1270,
+            height=2,
+            corner_radius=0,
             fg_color=color[0]
         )
-        self.frame_down.place(
-            relx=0.5, rely=0.98,
-            anchor='s'
+        self.bar_gray.place(
+            relx= 0.5,
+            rely= 0.2,
+            anchor='center'
         )
 
     def create_frame_center(self, color):
         """Create the center frame of the application."""
         self.frame_center = ctkf(
             self,
-            width=850,
-            height=400,
+            width=800,
+            height=420,
             corner_radius=20,
             fg_color=color[1]
         )
         self.frame_center.place(
-            relx=0.37, rely=0.5, anchor='center'
+            relx=0.35, 
+            rely=0.578, 
+            anchor='center'
         )
 
-        graph_oil_window(self.frame_center)
+        #graph_oil_window(self.frame_center)
     
     def create_frame_right(self, color):
         """Create the right frame of the application."""
         self.frame_right = ctkf(
             self,
-            width=300,
-            height=400,
+            width=320,
+            height=420,
             corner_radius=20,
             fg_color=color[1]
         )
         self.frame_right.place(
-            relx=0.85, rely=0.50, anchor='center'
+            relx=0.84, rely=0.578, anchor='center'
         )
-
-Gui().mainloop()
