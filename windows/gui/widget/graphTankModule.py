@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt # Import pyplot
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Import FigureCanvasTkAgg for we work with canvas
+import matplotlib.animation as animation # animation
 import customtkinter as ctk # Import customtkinter for custom widgets
-from customtkinter import CTk # Import CTk for custom tkinter theme
+
 
 class graph_oil_window():
     def __init__(self,root):
-        fig, ax = plt.subplots(figsize = (10, 6))  # Change plt.subplot() to plt.subplots()
+        fig, ax = plt.subplots(figsize = (12, 6.2))  # Change plt.subplot() to plt.subplots()
         ax.plot([1,2,3,4,5], [1,4,9,16,25])  # plotting the data
         
         # Create a Tkinter canvas
