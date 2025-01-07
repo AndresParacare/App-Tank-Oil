@@ -34,6 +34,9 @@ class Gui(ctk):
         self.bar_gray(color)
         self.create_frame_center(color)
         self.create_frame_right(color)
+        self.buttom_dashboard(color)
+        self.buttom_pictures(color)
+        self.label_dasboard(color)
         
 
     def create_frame_up(self, color):
@@ -86,6 +89,50 @@ class Gui(ctk):
         )
         self.label_up.place(
             relx=0.1, rely=0.5, anchor='center'
+        )
+
+    def label_dasboard(self, color):
+        """Create a label for identify dashboard"""
+        self.l_dashboard = ctkl(
+            self,
+            width=90,
+            height=30,
+            text="Dashboard",
+            fg_color=color[1]
+        )
+
+        self.l_dashboard.place(
+            relx=0.1, rely=0.154, anchor='center'
+        )
+
+    def buttom_dashboard(self, color):
+        """Buttom to the dashboard"""
+        self.b_dashboard = ctkb(
+            self,
+            text="",
+            width=35,
+            height=35,
+            corner_radius=90,
+            fg_color=color[1]
+        )
+
+        self.b_dashboard.place(
+            relx=0.95, rely=0.154, anchor='center'
+        )
+
+    def buttom_pictures(self, color):
+        """Buttom to the pictures"""
+        self.b_pictures = ctkb(
+            self,
+            text="",
+            width=35,
+            height=35,
+            corner_radius=90,
+            fg_color=color[1]
+        )
+
+        self.b_pictures.place(
+            relx=0.9, rely=0.154, anchor='center'
         )
 
     def bar_gray(self, color):
