@@ -12,7 +12,7 @@ class graph_oil_window(animation):
         #Create animation
         ani = animation_tools.FuncAnimation(fig=fig, func=self.update, frames=40, interval=30)
         
-        # Create a Tkinter canvas
+        # Create a Tkinter canvas 
         canvas = FigureCanvasTkAgg(fig, master=root) # Create the Tkinter canvas with the figure
         canvas.draw() # Draw the canvas, the figure will be painted here
         canvas.get_tk_widget().pack(
