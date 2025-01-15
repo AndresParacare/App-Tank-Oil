@@ -38,7 +38,7 @@ class tank():
             if(self.level<0):
                 self.level = 0
 
-    def tank_status(self):
+    def tank_state(self):
         return self.level
     
     def set_capacity_tank_tank(self):
