@@ -1,6 +1,6 @@
 from typing import Union, Optional
 
-class speed():
+class gasoline():
     def __init__(self, inlet_flow: Optional[Union[int, float]] = 0, output_flow: Optional[Union[int, float]] = 0):
         """ 
         Q = volumen / tiempo
