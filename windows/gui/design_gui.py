@@ -5,6 +5,7 @@ from customtkinter import CTkButton as ctkb # Import CTkButton for the button wi
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
 from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
+from generate.generate import generate # funcionality of the buttoms
 from PIL import Image # library for image processing
 
 class Gui(ctk):
@@ -14,6 +15,10 @@ class Gui(ctk):
         Create the main window of the application 
         and the frames of the application.
         """ 
+        # Activate class generate
+        self.generator = generate()
+        self.generator.gasoline.inlet_flow = 2
+        self.generator.gasoline.output_flow = 1.5
 
         #Images with format
         picture_play_data = Image.open(".\pictures\play.png")
@@ -133,7 +138,8 @@ class Gui(ctk):
             height=35,
             corner_radius=90,
             fg_color=color[1],
-            image=self.picture_stop
+            image=self.picture_stop,
+            command=self.command_buttom_stop_init
         )
 
         self.b_stop_init.place(
@@ -149,7 +155,8 @@ class Gui(ctk):
             height=35,
             corner_radius=90,
             fg_color=color[1],
-            image=self.picture_play
+            image=self.picture_play,
+            command=self.command_buttom_start_init
         )
 
         self.b_start_init.place(
@@ -181,7 +188,8 @@ class Gui(ctk):
             height=35,
             corner_radius=90,
             fg_color=color[1],
-            image=self.picture_play
+            image=self.picture_play,
+            command= self.command_buttom_start_output
         )
 
         self.b_start_out.place(
@@ -232,3 +240,12 @@ class Gui(ctk):
         self.frame_right.place(
             relx=0.84, rely=0.578, anchor='center'
         )
+    
+    def command_buttom_start_init(self):
+        self.generator.start_input()
+
+    def command_buttom_stop_init(self):
+        self.generator.stop_input()
+    
+    def command_buttom_start_output(self):
+        self.generator.start_output()

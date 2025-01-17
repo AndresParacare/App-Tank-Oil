@@ -11,6 +11,7 @@ class graph_oil_window(animation):
 
         #Create animation
         ani = animation_tools.FuncAnimation(fig=fig, func=self.update, frames=40, interval=30)
+        #self.ax.bar()
 
         # Create a Tkinter canvas
         canvas = FigureCanvasTkAgg(fig, master=root) # Create the Tkinter canvas with the figure

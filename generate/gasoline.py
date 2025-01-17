@@ -20,12 +20,12 @@ class gasoline():
 
     def modify_inlet_flow(self, new_speed: Optional[Union[int, float]]) -> None:
         """ Modify inlet flow of the tank """
-        if(new_speed>=0):
+        if(new_speed>0):
             self.inlet_flow = new_speed
 
     def modify_output_flow(self, new_speed: Optional[Union[int, float]]) -> None:
         """ Modify output flow of the tank """
-        if(new_speed>=0):
+        if(new_speed>0):
             self.output_flow = new_speed
 
     def inlet_flow_status(self):
@@ -35,11 +35,3 @@ class gasoline():
     def output_flow_status(self):
         """ Check if the output flow is active """
         return self.output_flow != 0
-    
-    def inlet_flow_speed(self):
-        """ Return the inlet flow speed """
-        return self.inlet_flow
-    
-    def output_flow_speed(self):
-        """ Return the output flow speed """
-        return self.output_flow

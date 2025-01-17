@@ -1,4 +1,3 @@
-import numpy as np
 from typing import Union, Optional
 from generate.formulas import formulas
 
