@@ -12,14 +12,17 @@ class generate():
         # Create the class tank
         self.tank = tank()
 
-    def start_input():
+    def start_input(self):
+        while(self.gasoline.inlet_flow_status()):
+            self.tank.tank_input(self.gasoline.inlet_flow)
+
+    def stop_input(self):
         pass
 
-    def stop_input():
-        pass
 
-    def start_output():
-        pass
+    def start_output(self):
+        while(self.gasoline.output_flow_status()):
+            self.tank.tank_output(self.gasoline.output_flow)
 
-    def stop_output():
+    def stop_output(self):
         pass
