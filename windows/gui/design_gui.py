@@ -172,7 +172,8 @@ class Gui(ctk):
             height=35,
             corner_radius=90,
             fg_color=color[1],
-            image=self.picture_stop
+            image=self.picture_stop,
+            command=self.command_buttom_stop_output
         )
 
         self.b_stop_out.place(
@@ -249,3 +250,6 @@ class Gui(ctk):
     
     def command_buttom_start_output(self):
         self.generator.start_output()
+
+    def command_buttom_stop_output(self):
+        self.generator.stop_output()
