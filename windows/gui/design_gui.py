@@ -1,9 +1,12 @@
+from customtkinter import CTkImage # Import CTkImage from customtkinter
 from customtkinter import CTk as ctk #Class for customtkinter widgets
 from customtkinter import CTkFrame as ctkf #Class for customtkinter widgets
 from customtkinter import CTkButton as ctkb # Import CTkButton for the button widget
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
 from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
+from generate.generate import generate # funcionality of the buttoms
+from PIL import Image # library for image processing
 
 class Gui(ctk):
     def __init__(self):
@@ -12,6 +15,25 @@ class Gui(ctk):
         Create the main window of the application 
         and the frames of the application.
         """ 
+        # Activate class generate
+        self.generator = generate()
+        self.generator.gasoline.inlet_flow = 2
+        self.generator.gasoline.output_flow = 1.5
+
+        #Images with format
+        picture_play_data = Image.open(".\pictures\play.png")
+        picture_stop_data = Image.open(".\pictures\stop.png")
+
+        #Images to widgets
+        self.picture_play = CTkImage(
+            dark_image=picture_play_data,
+            light_image=picture_play_data
+        )
+        self.picture_stop = CTkImage(
+            dark_image=picture_stop_data,
+            light_image=picture_stop_data
+        )
+
         #Create the main window of the application
         self.title("Titulo")
         color, fg_color_window = color_pallete()
@@ -34,8 +56,10 @@ class Gui(ctk):
         self.bar_gray(color)
         self.create_frame_center(color)
         self.create_frame_right(color)
-        self.buttom_dashboard(color)
-        self.buttom_pictures(color)
+        self.buttom_stop_init(color)
+        self.buttom_start_init(color)
+        self.buttom_stop_out(color)
+        self.buttom_start_out(color)
         self.label_dasboard(color)
         
 
@@ -105,34 +129,72 @@ class Gui(ctk):
             relx=0.1, rely=0.154, anchor='center'
         )
 
-    def buttom_dashboard(self, color):
+    def buttom_stop_init(self, color):
         """Buttom to the dashboard"""
-        self.b_dashboard = ctkb(
+        self.b_stop_init = ctkb(
             self,
             text="",
             width=35,
             height=35,
             corner_radius=90,
-            fg_color=color[1]
+            fg_color=color[1],
+            image=self.picture_stop,
+            command=self.command_buttom_stop_init
         )
 
-        self.b_dashboard.place(
+        self.b_stop_init.place(
             relx=0.95, rely=0.154, anchor='center'
         )
 
-    def buttom_pictures(self, color):
+    def buttom_start_init(self, color):
         """Buttom to the pictures"""
-        self.b_pictures = ctkb(
+        self.b_start_init = ctkb(
             self,
             text="",
             width=35,
             height=35,
             corner_radius=90,
-            fg_color=color[1]
+            fg_color=color[1],
+            image=self.picture_play,
+            command=self.command_buttom_start_init
         )
 
-        self.b_pictures.place(
+        self.b_start_init.place(
             relx=0.9, rely=0.154, anchor='center'
+        )
+    
+    def buttom_stop_out(self, color):
+        """Buttom to the dashboard"""
+        self.b_stop_out = ctkb(
+            self,
+            text="",
+            width=35,
+            height=35,
+            corner_radius=90,
+            fg_color=color[1],
+            image=self.picture_stop,
+            command=self.command_buttom_stop_output
+        )
+
+        self.b_stop_out.place(
+            relx=0.8, rely=0.154, anchor='center'
+        )
+
+    def buttom_start_out(self, color):
+        """Buttom to the pictures"""
+        self.b_start_out = ctkb(
+            self,
+            text="",
+            width=35,
+            height=35,
+            corner_radius=90,
+            fg_color=color[1],
+            image=self.picture_play,
+            command= self.command_buttom_start_output
+        )
+
+        self.b_start_out.place(
+            relx=0.75, rely=0.154, anchor='center'
         )
 
     def bar_gray(self, color):
@@ -179,3 +241,15 @@ class Gui(ctk):
         self.frame_right.place(
             relx=0.84, rely=0.578, anchor='center'
         )
+    
+    def command_buttom_start_init(self):
+        self.generator.start_input()
+
+    def command_buttom_stop_init(self):
+        self.generator.stop_input()
+    
+    def command_buttom_start_output(self):
+        self.generator.start_output()
+
+    def command_buttom_stop_output(self):
+        self.generator.stop_output()
