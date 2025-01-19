@@ -2,7 +2,6 @@ from generate.gasoline import gasoline # Manage gasoline
 from generate.formulas import formulas # have to import this to use the formulas
 from generate.tank import tank # Manage tank capacity and fuel level
 import time # Manage time and date
-import psutil # for system monitoring
 import threading # for multithreading
 
 class generate():

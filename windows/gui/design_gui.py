@@ -1,8 +1,10 @@
-from customtkinter import CTkImage # Import CTkImage from customtkinter
+from customtkinter import CTkImage, CTkFont # Import CTkImage and CTkFont from customtkinter
 from customtkinter import CTk as ctk #Class for customtkinter widgets
 from customtkinter import CTkFrame as ctkf #Class for customtkinter widgets
 from customtkinter import CTkButton as ctkb # Import CTkButton for the button widget
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
+from customtkinter import CTkEntry as ctken # Import CTkEntry for the entry widget
+from customtkinter import CTkProgressBar as ctksb # Import CTkProgressBar for the progress bar widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
 from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 from generate.generate import generate # funcionality of the buttoms
@@ -82,37 +84,14 @@ class Gui(ctk):
         # Create a button ten frames to the left of the right edge of frame_up
         self.button_up_right = ctkb(
             self.frame_up,
-            text="",
-            width=50,
+            text="Logo",
+            width=100,
             height=50,
-            corner_radius=90,
+            corner_radius=0,
             fg_color=color[1]
         )
         self.button_up_right.place(
-            relx=0.95, rely=0.5, anchor='center'  # Adjusted relx to 0.85
-        )
-
-        # Create a buttom to the notifcation
-        self.button_notification = ctkb(
-            self.frame_up,
-            text="",
-            width=40,
-            height=40,
-            corner_radius=90,
-            fg_color=color[1]
-        )
-        self.button_notification.place(
-            relx=0.9, rely=0.5, anchor='center'
-        )
-
-        # Create a label to the left of the frame_up
-        self.label_up = ctkl(
-            self.frame_up,
-            text="Name of the application",
-            fg_color=color[1]
-        )
-        self.label_up.place(
-            relx=0.1, rely=0.5, anchor='center'
+            relx=0.5, rely=0.5, anchor='center'  # Adjusted relx to 0.85
         )
 
     def label_dasboard(self, color):
@@ -121,8 +100,9 @@ class Gui(ctk):
             self,
             width=90,
             height=30,
-            text="Dashboard",
-            fg_color=color[1]
+            text="DASHBOARD",
+            fg_color="#222323",
+            font=CTkFont(size=26, weight="bold")  # Set font size to 20 and make it bold
         )
 
         self.l_dashboard.place(
@@ -233,13 +213,206 @@ class Gui(ctk):
         """Create the right frame of the application."""
         self.frame_right = ctkf(
             self,
-            width=320,
+            width=340,
             height=420,
             corner_radius=20,
             fg_color=color[1]
         )
         self.frame_right.place(
             relx=0.84, rely=0.578, anchor='center'
+        )
+
+        self.label_control = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="Control Panel",
+            fg_color=color[1],
+            font=CTkFont(size=22, weight="bold")  # Set font size to 20 and make it bold
+        )
+
+        self.label_control.place(
+            relx=0.5, rely=0.15, anchor='center'
+        )
+
+        self.b_save = ctkb(
+            self.frame_right,
+            text="Save",
+            width=50,
+            height=35,
+            corner_radius=30,
+            fg_color=color[0]
+        )
+
+        self.b_save.place(
+            relx=0.8, rely=0.9, anchor='center'
+        )
+
+        self.l_inlet_flow = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="Inlet Flow: ",
+            fg_color=color[1],
+            font=CTkFont(size=16)  # Set font size to 20
+        )
+
+        self.l_inlet_flow.place(
+            relx=0.2, rely=0.3, anchor='center'
+        )
+        self.entry_inlet_flow = ctken(
+            self.frame_right,
+            width=100,
+            height=20,
+            fg_color=color[5],
+            text_color=color[7],
+            font=CTkFont(size=16)  # Set font size to 20
+            )
+        
+        self.entry_inlet_flow.place(
+            relx=0.55, rely=0.3, anchor='center'
+            )
+        
+        self.b_apply_inlet = ctkb(
+            self.frame_right,
+            text="Apply",
+            width=30,
+            height=20,
+            corner_radius=30,
+            fg_color=color[0]
+        )
+
+        self.b_apply_inlet.place(
+            relx=0.82, rely=0.3, anchor='center'
+        )
+        
+        self.l_output_flow = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="Output Flow: ",
+            fg_color=color[1],
+            font=CTkFont(size=16)  # Set font size to 20
+        )
+
+        self.l_output_flow.place(
+            relx=0.2, rely=0.4, anchor='center'
+        )
+        self.entry_output_flow = ctken(
+            self.frame_right,
+            width=100,
+            height=20,
+            fg_color=color[5],
+            text_color=color[7],
+            font=CTkFont(size=16)  # Set font size to 20
+            )
+        
+        self.entry_output_flow.place(
+            relx=0.55, rely=0.4, anchor='center'
+            )
+        
+        self.b_apply_output = ctkb(
+            self.frame_right,
+            text="Apply",
+            width=30,
+            height=20,
+            corner_radius=30,
+            fg_color=color[0]
+        )
+
+        self.b_apply_output.place(
+            relx=0.82, rely=0.4, anchor='center'
+        )
+
+        self.l_capacity = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="Tank Capacity: ",
+            fg_color=color[1],
+            font=CTkFont(size=16)  # Set font size to 20
+        )
+
+        self.l_capacity.place(
+            relx=0.2, rely=0.5, anchor='center'
+        )
+
+        self.entry_capacity = ctken(
+            self.frame_right,
+            width=100,
+            height=20,
+            fg_color=color[5],
+            text_color=color[7],
+            font=CTkFont(size=16)  # Set font size to 20
+            )
+        
+        self.entry_capacity.place(
+            relx=0.55, rely=0.5, anchor='center'
+            )
+        
+        self.b_apply_capacity = ctkb(
+            self.frame_right,
+            text="Apply",
+            width=30,
+            height=20,
+            corner_radius=30,
+            fg_color=color[0]
+        )
+
+        self.b_apply_capacity.place(
+            relx=0.82, rely=0.5, anchor='center'
+        )
+        
+        self.l_capacity_tank = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="Total Tank Capacity: {} l",
+            fg_color=color[1],
+            font=CTkFont(size=16)  # Set font size to 20
+        )
+
+        self.l_capacity_tank.place(
+            relx=0.5, rely=0.64, anchor='center'
+        )
+
+        self.pro_bar_tank = ctksb(
+            self.frame_right,
+            width=250,
+            height=20,
+            corner_radius=10,
+            fg_color=color[5],
+            progress_color=color[7]
+        )
+
+        self.pro_bar_tank.place(
+            relx=0.5, rely=0.71, anchor='center'
+        )
+
+        self.l_level_tank = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="Level: {} l",
+            fg_color=color[1],
+            font=CTkFont(size=12)  # Set font size to 20
+        )
+
+        self.l_level_tank.place(
+            relx=0.2, rely=0.77, anchor='center'
+        )
+
+        self.l_free_space = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text="free space: {} l",
+            fg_color=color[1],
+            font=CTkFont(size=12)  # Set font size to 20
+        )
+
+        self.l_free_space.place(
+            relx=0.76, rely=0.77, anchor='center'
         )
     
     def command_buttom_start_init(self):

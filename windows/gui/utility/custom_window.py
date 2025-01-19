@@ -13,11 +13,14 @@ def color_pallete():
     """
 
     color = [
+       "#5dade2",
        "#505050",
        "#B1B1B1",
        "#F4F4F9",
        "#008080",
-       "#FFFFFF"
+       "#FFFFFF",
+       "#DC143C",
+       "#000000"
     ]
     if(1):
       fg_color_window = "#222323"
