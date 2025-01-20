@@ -79,9 +79,9 @@ class generate():
     
     def modify_capacity_tank(self, capacity: float):
         # Modify the tank capacity
-        if (capacity > 0):
+        if capacity > 0:
             self.tank.capacity_tank_total = capacity
-            self.tank.ullage = formulas.ullage(volume= self.capacity_tank_total)
+            self.tank.ullage = formulas.ullage(volume=capacity)
             self.tank.capacity_tank = self.tank.capacity_tank_total - self.tank.ullage
     
     #-----------------#

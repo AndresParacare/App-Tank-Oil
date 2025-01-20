@@ -45,3 +45,10 @@ class tank():
     
     def set_capacity_tank_with_ullage(self):
         return self.capacity_tank
+
+    def modify_capacity_tank(self, capacity: float):
+        # Modify the tank capacity
+        if capacity > 0:
+            self.capacity_tank_total = capacity
+            self.ullage = formulas.ullage(volume=capacity)
+            self.capacity_tank = self.capacity_tank_total - self.ullage

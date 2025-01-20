@@ -445,7 +445,11 @@ class Gui(ctk):
         self.generator.modify_capacity_tank(capacity=capacity)
 
     def connect_entryTOcapacity(self):
-        newcapacity = float(self.entry_capacity.get())
+        new_capacity = float(self.entry_capacity.get())
+        self.modify_capacity(new_capacity)
+        self.l_capacity_tank.configure(text=f"Total Tank Capacity: {self.get_tank_capacity():.2f} L")
+        self.l_free_space.configure(text=f"Free space: {self.get_free_space():.2f} l")
+        self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
 
     def connect_entryTOinlet_flow(self):
         newinlet_flow = float(self.entry_inlet_flow.get())
