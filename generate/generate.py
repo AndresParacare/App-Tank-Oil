@@ -57,3 +57,19 @@ class generate():
         self.gasoline.output_flow = 0
         self.stop.set()
         self.thread_output.join()
+
+    def get_tank_level(self):
+        return self.tank.level
+
+    def get_tank_capacity(self):
+        return self.tank.capacity_tank_total
+
+    def get_free_space(self):
+        return self.tank.capacity_tank_total - self.tank.level
+    
+    def modify_capacity_tank(self, capacity: float):
+        # Modify the tank capacity
+        if (capacity > 0):
+            self.tank.capacity_tank_total = capacity
+            self.tank.ullage = formulas.ullage(volume= self.capacity_tank_total)
+            self.tank.capacity_tank = self.tank.capacity_tank_total - self.tank.ullage

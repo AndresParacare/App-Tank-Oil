@@ -9,6 +9,7 @@ from windows.gui.utility.custom_window import color_pallete #Function for color 
 from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 from generate.generate import generate # funcionality of the buttoms
 from PIL import Image # library for image processing
+from typing import Union, Optional
 
 class Gui(ctk):
     def __init__(self):
@@ -82,17 +83,17 @@ class Gui(ctk):
         )
         
         # Create a button ten frames to the left of the right edge of frame_up
-        self.button_up_right = ctkb(
-            self.frame_up,
-            text="Logo",
-            width=100,
-            height=50,
-            corner_radius=0,
-            fg_color=color[1]
-        )
-        self.button_up_right.place(
-            relx=0.5, rely=0.5, anchor='center'  # Adjusted relx to 0.85
-        )
+        #self.button_up_right = ctkb(
+        #    self.frame_up,
+        #    text="Logo",
+        #    width=100,
+        #    height=50,
+        #    corner_radius=0,
+        #    fg_color=color[1]
+        #)
+        #self.button_up_right.place(
+        #    relx=0.5, rely=0.5, anchor='center'  # Adjusted relx to 0.85
+        #)
 
     def label_dasboard(self, color):
         """Create a label for identify dashboard"""
@@ -279,7 +280,8 @@ class Gui(ctk):
             width=30,
             height=20,
             corner_radius=30,
-            fg_color=color[0]
+            fg_color=color[0],
+            command= self.connect_entryTOinlet_flow
         )
 
         self.b_apply_inlet.place(
@@ -317,7 +319,8 @@ class Gui(ctk):
             width=30,
             height=20,
             corner_radius=30,
-            fg_color=color[0]
+            fg_color=color[0],
+            command=self.connect_entryTOoutput_flow
         )
 
         self.b_apply_output.place(
@@ -356,7 +359,8 @@ class Gui(ctk):
             width=30,
             height=20,
             corner_radius=30,
-            fg_color=color[0]
+            fg_color=color[0],
+            command=self.connect_entryTOcapacity
         )
 
         self.b_apply_capacity.place(
@@ -367,7 +371,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="Total Tank Capacity: {} l",
+            text=f"Total Tank Capacity: {self.get_tank_capacity():.2f} L",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -393,7 +397,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="Level: {} l",
+            text=f"Level: {self.get_tank_level():.2f} l",
             fg_color=color[1],
             font=CTkFont(size=12)  # Set font size to 20
         )
@@ -406,7 +410,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="free space: {} l",
+            text=f"free space: {self.get_free_space():.2f} l",
             fg_color=color[1],
             font=CTkFont(size=12)  # Set font size to 20
         )
@@ -426,3 +430,26 @@ class Gui(ctk):
 
     def command_buttom_stop_output(self):
         self.generator.stop_output()
+
+    def get_tank_level(self) -> float:
+        return self.generator.get_tank_level()
+
+    def get_tank_capacity(self) -> float:
+        return self.generator.get_tank_capacity()
+
+    def get_free_space(self) -> float:
+        return self.generator.get_free_space()
+    
+    def modify_capacity(self, capacity: Optional[Union[float, int]]):
+        self.generator.modify_capacity_tank(capacity=capacity)
+
+    def connect_entryTOcapacity(self):
+        newcapacity = float(self.entry_capacity.get())
+
+    def connect_entryTOinlet_flow(self):
+        newinlet_flow = float(self.entry_inlet_flow.get())
+        print(newinlet_flow)
+
+    def connect_entryTOoutput_flow(self):
+        newoutput_flow = float(self.entry_output_flow.get())
+        print(newoutput_flow)

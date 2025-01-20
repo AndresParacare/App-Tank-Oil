@@ -3,6 +3,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Import FigureC
 import matplotlib.animation as animation_tools # animation
 import customtkinter as ctk # Import customtkinter for custom widgets
 import numpy as np
+import seaborn as sns  # Import seaborn
 
 class graph_oil_window():
     #animation):
@@ -10,9 +11,12 @@ class graph_oil_window():
         self._x = np.array([0.5])  # Single bar position
         self._y = np.array([0])  # Initial height of the bar
 
+        sns.set(style="whitegrid")  # Apply seaborn style to the plot
+        colors = sns.color_palette("husl", 1)  # Use seaborn color palette
+
         fig, self.ax = plt.subplots(figsize=(12, 6.2))  # Change plt.subplot() to plt.subplots()
 
-        self.bar = self.ax.bar(self._x, self._y, color='black')
+        self.bar = self.ax.bar(self._x, self._y, color='black', alpha=0.85)  # Use the color black and make the bar transparent
         self.ax.set(xlim=[0, 1], ylim=[0, 100])
 
         # Create animation

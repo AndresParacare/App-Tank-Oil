@@ -45,6 +45,3 @@ class tank():
     
     def set_capacity_tank_with_ullage(self):
         return self.capacity_tank
-    
-    def modify_capacity_tank(self, lenght:Optional[Union[float, int]], radius:Optional[Union[float, int]], volume):
-        self.capacity_tank_total = volume(lenght, radius)
