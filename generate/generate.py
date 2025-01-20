@@ -43,16 +43,16 @@ class generate():
 
     def loop_input(self):
         while(True):
-            self.tank.tank_input(self.gasoline.inlet_flow)
-            time.sleep(1)
+            self.tank.tank_input(self.gasoline.inlet_flow/10)
+            time.sleep(1/10)
             print(self.tank.level)
             if(self.gasoline.inlet_flow == 0):
                 break;
 
     def loop_output(self):
         while(True):
-            self.tank.tank_output(self.gasoline.output_flow)
-            time.sleep(1)
+            self.tank.tank_output(self.gasoline.output_flow/10)
+            time.sleep(1/10)
             print(self.tank.level)
             if(self.gasoline.output_flow == 0):
                 break;
@@ -98,10 +98,9 @@ class generate():
         fig, self.ax = plt.subplots(figsize=(12, 6.2))  # Change plt.subplot() to plt.subplots()
 
         self.bar = self.ax.bar(self._x, self._y, color='black', alpha=0.85)  # Use the color black and make the bar transparent
-        self.ax.set(xlim=[0, 1], ylim=[0, 100])
+        self.ax.set(xlim=[0, 1], ylim=[0, self.tank.capacity_tank_total])
 
         # Create animation
-        #ani = animation_tools.FuncAnimation(fig=fig, func=self.update, frames=40, interval=30)
         ani = animation_tools.FuncAnimation(fig, self.update, frames=np.arange(0, 175), interval=30, blit=True)
 
         # Create a Tkinter canvas
@@ -115,9 +114,7 @@ class generate():
 
     def update(self, frame):
         """Update the bar chart"""
-        if frame <= 100:
-            height = frame
-        else:
-            height = 175 - frame  # Decrease from 100 to 75
+        height = self.tank.level  # Use the tank level for the bar height
         self.bar[0].set_height(height)
+        self.bar[0].set_color('red')  # Change the bar color to red and make it transparent
         return self.bar
