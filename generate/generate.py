@@ -4,6 +4,16 @@ from generate.tank import tank # Manage tank capacity and fuel level
 import time # Manage time and date
 import threading # for multithreading
 
+#++++++++++++++++++++++#
+# library for the tank #
+#++++++++++++++++++++++#
+import matplotlib.pyplot as plt # Import pyplot
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg # Import FigureCanvasTkAgg for we work with canvas
+import matplotlib.animation as animation_tools # animation
+import customtkinter as ctk # Import customtkinter for custom widgets
+import numpy as np
+import seaborn as sns  # Import seaborn
+
 class generate():
     def __init__(self):
         # Initialize the class
@@ -73,3 +83,41 @@ class generate():
             self.tank.capacity_tank_total = capacity
             self.tank.ullage = formulas.ullage(volume= self.capacity_tank_total)
             self.tank.capacity_tank = self.tank.capacity_tank_total - self.tank.ullage
+    
+    #-----------------#
+    #  graph of tank  #
+    #-----------------#
+    def graph_oil_window(self, root):
+
+        self._x = np.array([0.5])  # Single bar position
+        self._y = np.array([0])  # Initial height of the bar
+
+        sns.set(style="whitegrid")  # Apply seaborn style to the plot
+        colors = sns.color_palette("husl", 1)  # Use seaborn color palette
+
+        fig, self.ax = plt.subplots(figsize=(12, 6.2))  # Change plt.subplot() to plt.subplots()
+
+        self.bar = self.ax.bar(self._x, self._y, color='black', alpha=0.85)  # Use the color black and make the bar transparent
+        self.ax.set(xlim=[0, 1], ylim=[0, 100])
+
+        # Create animation
+        #ani = animation_tools.FuncAnimation(fig=fig, func=self.update, frames=40, interval=30)
+        ani = animation_tools.FuncAnimation(fig, self.update, frames=np.arange(0, 175), interval=30, blit=True)
+
+        # Create a Tkinter canvas
+        canvas = FigureCanvasTkAgg(fig, master=root) # Create the Tkinter canvas with the figure
+        canvas.draw() # Draw the canvas, the figure will be painted here
+        canvas.get_tk_widget().pack(
+            side=ctk.TOP,
+            fill=ctk.BOTH,
+            expand=True
+        ) # Put the canvas in the Tkinter window
+
+    def update(self, frame):
+        """Update the bar chart"""
+        if frame <= 100:
+            height = frame
+        else:
+            height = 175 - frame  # Decrease from 100 to 75
+        self.bar[0].set_height(height)
+        return self.bar

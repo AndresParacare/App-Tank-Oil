@@ -208,7 +208,8 @@ class Gui(ctk):
             anchor='center'
         )
 
-        graph_oil_window(self.frame_center)
+        #graph_oil_window(self.frame_center)
+        self.generator.graph_oil_window(self.frame_center)
     
     def create_frame_right(self, color):
         """Create the right frame of the application."""
