@@ -52,3 +52,6 @@ class tank():
             self.capacity_tank_total = capacity
             self.ullage = formulas.ullage(volume=capacity)
             self.capacity_tank = self.capacity_tank_total - self.ullage
+
+    def get_ullage(self):
+        return self.ullage

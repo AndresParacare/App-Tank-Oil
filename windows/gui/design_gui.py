@@ -5,6 +5,7 @@ from customtkinter import CTkButton as ctkb # Import CTkButton for the button wi
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
 from customtkinter import CTkEntry as ctken # Import CTkEntry for the entry widget
 from customtkinter import CTkProgressBar as ctksb # Import CTkProgressBar for the progress bar widget
+from customtkinter import CTkInputDialog as ctkid # Import CTkInputDialog for the input dialog widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
 #from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 from generate.generate import generate # funcionality of the buttoms
@@ -243,7 +244,8 @@ class Gui(ctk):
             width=50,
             height=35,
             corner_radius=30,
-            fg_color=color[0]
+            fg_color=color[0],
+            command= self.dialog_info
         )
 
         self.b_info.place(
@@ -488,3 +490,27 @@ class Gui(ctk):
         self.generator.gasoline.output_flow = new_output_flow
         self.l_output_flow_value.configure(text=f"Output Flow: {new_output_flow:.2f} L/s")
         print(f"New output flow: {new_output_flow}")
+
+    def dialog_info(self):
+        tank_capacity = self.get_tank_capacity()
+        tank_level = self.get_tank_level()
+        free_space = self.get_free_space()
+        ullage = self.generator.get_ullage()
+        inlet_flow = self.generator.gasoline.inlet_flow
+        output_flow = self.generator.gasoline.output_flow
+
+        info_message = (
+            f"Tank Capacity: {tank_capacity:.2f} L\n"
+            f"Tank Level: {tank_level:.2f} L\n"
+            f"Free Space: {free_space:.2f} L\n"
+            f"Ullage: {ullage:.2f} L\n"
+            f"Inlet Flow: {inlet_flow:.2f} L/s\n"
+            f"Output Flow: {output_flow:.2f} L/s"
+        )
+
+        self.info = ctkid(
+            #fg_color=self._fg_color,
+            title="System Info",
+            text=info_message,
+            fg_color=self._fg_color
+        )

@@ -89,6 +89,9 @@ class generate():
 
     def set_output_flow(self, flow: float):
         self.gasoline.output_flow = flow
+
+    def get_ullage(self):
+        return self.tank.get_ullage()
     
     #-----------------#
     #  graph of tank  #
