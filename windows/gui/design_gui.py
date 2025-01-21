@@ -11,6 +11,8 @@ from windows.gui.utility.custom_window import color_pallete #Function for color 
 from generate.generate import generate # funcionality of the buttoms
 from PIL import Image # library for image processing
 from typing import Union, Optional
+import time
+import threading # Import threading
 
 class Gui(ctk):
     def __init__(self):
@@ -39,8 +41,16 @@ class Gui(ctk):
         )
 
         #Create the main window of the application
-        self.title("Titulo")
+        self.title("App Tank Oil")
         color, fg_color_window = color_pallete()
+
+        # icon 
+        #self. ICO = Image.open(".\pictures\icon.png")
+        #self.ICO = self.ICO.resize((32, 32))
+        #self.ICO = self.ICO.convert('RGB')
+        #self.ICO = ImageTk.PhotoImage(self.ICO)
+        #self.iconphoto(False, self.ICO)
+        
 
         #size window
         self.pl_x = -5
@@ -65,6 +75,10 @@ class Gui(ctk):
         self.buttom_stop_out(color)
         self.buttom_start_out(color)
         self.label_dasboard(color)
+        
+        #loop of level
+        self.loop_level_show = threading.Thread(target=self.loop_level)
+        self.loop_level_show.start()
         
 
     def create_frame_up(self, color):
@@ -478,6 +492,7 @@ class Gui(ctk):
         self.l_capacity_tank.configure(text=f"Total Tank Capacity: {self.get_tank_capacity():.2f} L")
         self.l_free_space.configure(text=f"Free space: {self.get_free_space():.2f} l")
         self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
+        self.reset_graph()
 
     def connect_entryTOinlet_flow(self):
         new_inlet_flow = float(self.entry_inlet_flow.get())
@@ -490,6 +505,16 @@ class Gui(ctk):
         self.generator.gasoline.output_flow = new_output_flow
         self.l_output_flow_value.configure(text=f"Output Flow: {new_output_flow:.2f} L/s")
         print(f"New output flow: {new_output_flow}")
+
+    def loop_level(self):
+        while(True):
+            time.sleep(1)
+            self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
+
+    def reset_graph(self):
+        self.frame_center.destroy()
+        color, fg_color_window = color_pallete()
+        self.create_frame_center(color=color)
 
     def dialog_info(self):
         tank_capacity = self.get_tank_capacity()

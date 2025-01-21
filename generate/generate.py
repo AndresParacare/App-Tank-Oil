@@ -24,6 +24,10 @@ class generate():
         # Create the class tank
         self.tank = tank()
 
+        # Bloqueo
+        self.inlet_padlock = False
+        self.outlet_padlock = False
+
         #thread
         self.thread_input = threading.Thread(target=self.loop_input)
         self.thread_output = threading.Thread(target=self.loop_output)
@@ -32,41 +36,50 @@ class generate():
     def start_input(self):
         # Start the input thread
         if(self.gasoline.inlet_flow_status()):
+            self.inlet_padlock = False
             self.stop.clear()
             self.thread_input.start()
         
     def start_output(self):
         # Start the output thread
         if(self.gasoline.output_flow_status()):
+            self.outlet_padlock = False
             self.stop.clear()
             self.thread_output.start()
 
     def loop_input(self):
         while(True):
+            if(self.inlet_padlock):
+                time.sleep(1)
+                continue
             self.tank.tank_input(self.gasoline.inlet_flow/10)
             time.sleep(1/10)
             print(self.tank.level)
-            if(self.gasoline.inlet_flow == 0):
-                break;
 
     def loop_output(self):
         while(True):
+            if(self.outlet_padlock):
+                time.sleep(1)
+                continue
             self.tank.tank_output(self.gasoline.output_flow/10)
             time.sleep(1/10)
             print(self.tank.level)
-            if(self.gasoline.output_flow == 0):
-                break;
+            
 
 
     def stop_input(self):
-        self.gasoline.inlet_flow = 0
-        self.stop.set()
-        self.thread_input.join()
+        # Stop the input thread
+        self.inlet_padlock = True
+        #self.gasoline.inlet_flow = 0
+        #self.stop.set()
+        #self.thread_input.join()
 
     def stop_output(self):
-        self.gasoline.output_flow = 0
-        self.stop.set()
-        self.thread_output.join()
+        # Stop the output thread
+        self.outlet_padlock = True
+        #self.gasoline.output_flow = 0
+        #self.stop.set()
+        #self.thread_output.join()
 
     def get_tank_level(self):
         return self.tank.level
@@ -104,7 +117,7 @@ class generate():
         sns.set(style="whitegrid")  # Apply seaborn style to the plot
         colors = sns.color_palette("husl", 1)  # Use seaborn color palette
 
-        fig, self.ax = plt.subplots(figsize=(12, 6.2))  # Change plt.subplot() to plt.subplots()
+        self.fig, self.ax = plt.subplots(figsize=(12, 6.2))  # Change plt.subplot() to plt.subplots()
 
         self.bar = self.ax.bar(self._x, self._y, color='black', alpha=0.85)  # Use the color black and make the bar transparent
         self.ax.set(xlim=[0, 1], ylim=[0, self.tank.capacity_tank_total])
@@ -126,14 +139,13 @@ class generate():
 
         # Identify ullage
         self.ax.axhline(y=self.tank.capacity_tank, color='red', linestyle='--', linewidth=2, alpha=0.7)
-        self.ax.text(1.03, self.tank.capacity_tank, 'Ullage', fontsize=12, color='red', ha='center')
+        self.ax.text(1.03,self.tank.capacity_tank, f'Ullage\n{self.tank.get_ullage():.2f}', fontsize=12, color='red', ha='center')
 
         # Create animation
-        ani = animation_tools.FuncAnimation(fig, self.update, frames=np.arange(0, 175), interval=30, blit=True)
-
+        ani = animation_tools.FuncAnimation(self.fig, self.update, frames=np.arange(0, 175), interval=30, blit=True)
 
         # Create a Tkinter canvas
-        canvas = FigureCanvasTkAgg(fig, master=root) # Create the Tkinter canvas with the figure
+        canvas = FigureCanvasTkAgg(self.fig, master=root) # Create the Tkinter canvas with the figure
         canvas.draw() # Draw the canvas, the figure will be painted here
         canvas.get_tk_widget().pack(
             side=ctk.TOP,
@@ -150,3 +162,20 @@ class generate():
         height = self.tank.level  # Use the tank level for the bar height
         self.bar[0].set_height(height)
         return self.bar
+    
+    def reset_graph(self):
+        self.fig.clf()
+        self.ax = self.fig.subplots()
+        self.bar = self.ax.bar(self._x, self._y, color='black', alpha=0.85)
+        self.ax.set(xlim=[0, 1], ylim=[0, self.tank.capacity_tank_total])
+        self.ax.set_title('Tank Level', fontsize=20)
+        self.ax.set_ylabel('Level (L)', fontsize=14, labelpad=30)
+        self.ax.grid(True, linestyle='--', alpha=0.7)
+        self.ax.set_facecolor('#f0f0f0')
+        self.ax.set_xticks([])
+        self.ax.set_yticks(np.linspace(0, self.tank.capacity_tank_total,11))
+        self.ax.set_facecolor('#f0f0f0')
+        self.ax.spines['top'].set_visible(False)
+        self.ax.spines['bottom'].set_visible(False)
+        self.ax.tick_params(axis='x', colors='black')
+
