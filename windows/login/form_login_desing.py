@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from windows.gui.design_gui import Gui # Import gui of application
 from PIL import Image
 
 #clase del diseño de la interfaz grafica de usuario
@@ -111,15 +112,14 @@ class LoginDesign(ctk.CTk):
             anchor="w", pady=(38, 0), padx=(padx, 0)
         )
         self.entry_email = ctk.CTkEntry(
-            master = self.frame,
+            master=self.frame,
             width=225,
             fg_color="#EEEEEE",
-            border_color= color_border_sign,
+            border_color=color_border_sign,
             border_width=1,
             text_color="#000000"
-        ).pack(
-            anchor="center", padx=(0, 0)
         )
+        self.entry_email.pack(anchor="center", padx=(0, 0))
 
         #Ingreso del password
         self.label_password = ctk.CTkLabel(
@@ -129,23 +129,21 @@ class LoginDesign(ctk.CTk):
             anchor="w",
             justify="left",
             font=("Arial Bold", 14), 
-            image = picture_password, 
+            image=picture_password, 
             compound="left"
-            ).pack(
-                anchor="w", pady=(21, 0), padx=(padx, 0)
-            )
-        
+        ).pack(
+            anchor="w", pady=(21, 0), padx=(padx, 0)
+        )
         self.entry_password = ctk.CTkEntry(
             master=self.frame, 
             width=225,
             fg_color="#EEEEEE",
-            border_color= color_border_sign,
+            border_color=color_border_sign,
             border_width=1,
             text_color="#000000",
             show="*"
-            ).pack(
-                anchor="center", padx=(0, 0)
-            )
+        )
+        self.entry_password.pack(anchor="center", padx=(0, 0))
         
         #Botones de login
         self.buttom_login = ctk.CTkButton(
@@ -155,7 +153,8 @@ class LoginDesign(ctk.CTk):
             hover_color=hover_colorsign,
             font=("Arial Bold", 12),
             text_color="#ffffff",
-            width=275
+            width=275,
+            command=self.handle_login  # Set the command to handle_login
         ).pack(
             anchor="center", pady=(40, 0), padx=(0, 0)
         )
@@ -188,3 +187,16 @@ class LoginDesign(ctk.CTk):
         ).pack(
             anchor="w", pady=(5, 0), padx=(padx-29, 0)
             )
+
+    def handle_login(self):
+        email = self.entry_email.get()
+        password = self.entry_password.get()
+        
+        # Placeholder for actual authentication logic
+        if email == "admin" and password == "admin":
+            print("Login successful")
+            self.destroy()  # Close the login window
+            gui = Gui()  # Import and create an instance of the Gui class
+            gui.mainloop()
+        else:
+            print("Login failed")
