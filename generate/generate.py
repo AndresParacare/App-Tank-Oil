@@ -83,6 +83,12 @@ class generate():
             self.tank.capacity_tank_total = capacity
             self.tank.ullage = formulas.ullage(volume=capacity)
             self.tank.capacity_tank = self.tank.capacity_tank_total - self.tank.ullage
+
+    def set_inlet_flow(self, flow: float):
+        self.gasoline.inlet_flow = flow
+
+    def set_output_flow(self, flow: float):
+        self.gasoline.output_flow = flow
     
     #-----------------#
     #  graph of tank  #
@@ -99,9 +105,29 @@ class generate():
 
         self.bar = self.ax.bar(self._x, self._y, color='black', alpha=0.85)  # Use the color black and make the bar transparent
         self.ax.set(xlim=[0, 1], ylim=[0, self.tank.capacity_tank_total])
+        self.ax.set_title('Tank Level', fontsize=20)
+        self.ax.set_ylabel('Level (L)', fontsize=14, labelpad=30)
+        self.ax.grid(True, linestyle='--', alpha=0.7)  # Show grid
+        self.ax.set_facecolor('#f0f0f0')  # Set the background color of the plot
+
+        # Modify sticks
+        self.ax.set_xticks([])
+        self.ax.set_yticks(np.linspace(0, self.tank.capacity_tank_total,11))  # Set y ticks to b
+        self.ax.set_facecolor('#f0f0f0')
+
+        # Design graph 
+        self.ax.spines['top'].set_visible(False)
+        self.ax.spines['bottom'].set_visible(False)
+        self.ax.tick_params(axis='x', colors='black')
+        self.ax.tick_params(axis='y', colors='black')
+
+        # Identify ullage
+        self.ax.axhline(y=self.tank.capacity_tank, color='red', linestyle='--', linewidth=2, alpha=0.7)
+        self.ax.text(1.03, self.tank.capacity_tank, 'Ullage', fontsize=12, color='red', ha='center')
 
         # Create animation
         ani = animation_tools.FuncAnimation(fig, self.update, frames=np.arange(0, 175), interval=30, blit=True)
+
 
         # Create a Tkinter canvas
         canvas = FigureCanvasTkAgg(fig, master=root) # Create the Tkinter canvas with the figure
@@ -114,7 +140,10 @@ class generate():
 
     def update(self, frame):
         """Update the bar chart"""
+        if self.tank.level <= (self.tank.capacity_tank_total - self.tank.ullage):
+            self.bar[0].set_color((0, 0, 0, 0.5))  # Change the bar color to black and make it transparent
+        else:
+            self.bar[0].set_color((1, 0, 0, 0.5))  # Change the bar color to red and make it transparent
         height = self.tank.level  # Use the tank level for the bar height
         self.bar[0].set_height(height)
-        self.bar[0].set_color('red')  # Change the bar color to red and make it transparent
         return self.bar

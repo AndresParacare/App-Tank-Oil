@@ -6,7 +6,7 @@ from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widge
 from customtkinter import CTkEntry as ctken # Import CTkEntry for the entry widget
 from customtkinter import CTkProgressBar as ctksb # Import CTkProgressBar for the progress bar widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
-from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
+#from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 from generate.generate import generate # funcionality of the buttoms
 from PIL import Image # library for image processing
 from typing import Union, Optional
@@ -237,17 +237,17 @@ class Gui(ctk):
             relx=0.5, rely=0.15, anchor='center'
         )
 
-        self.b_save = ctkb(
+        self.b_info = ctkb(
             self.frame_right,
-            text="Save",
+            text="Info",
             width=50,
             height=35,
             corner_radius=30,
             fg_color=color[0]
         )
 
-        self.b_save.place(
-            relx=0.8, rely=0.9, anchor='center'
+        self.b_info.place(
+            relx=0.5, rely=0.9, anchor='center'
         )
 
         self.l_inlet_flow = ctkl(
@@ -299,7 +299,7 @@ class Gui(ctk):
         )
 
         self.l_output_flow.place(
-            relx=0.2, rely=0.4, anchor='center'
+            relx=0.2, rely=0.42, anchor='center'
         )
         self.entry_output_flow = ctken(
             self.frame_right,
@@ -311,7 +311,7 @@ class Gui(ctk):
             )
         
         self.entry_output_flow.place(
-            relx=0.55, rely=0.4, anchor='center'
+            relx=0.55, rely=0.42, anchor='center'
             )
         
         self.b_apply_output = ctkb(
@@ -325,7 +325,7 @@ class Gui(ctk):
         )
 
         self.b_apply_output.place(
-            relx=0.82, rely=0.4, anchor='center'
+            relx=0.82, rely=0.42, anchor='center'
         )
 
         self.l_capacity = ctkl(
@@ -338,7 +338,7 @@ class Gui(ctk):
         )
 
         self.l_capacity.place(
-            relx=0.2, rely=0.5, anchor='center'
+            relx=0.2, rely=0.56, anchor='center'
         )
 
         self.entry_capacity = ctken(
@@ -351,7 +351,7 @@ class Gui(ctk):
             )
         
         self.entry_capacity.place(
-            relx=0.55, rely=0.5, anchor='center'
+            relx=0.55, rely=0.56, anchor='center'
             )
         
         self.b_apply_capacity = ctkb(
@@ -365,7 +365,7 @@ class Gui(ctk):
         )
 
         self.b_apply_capacity.place(
-            relx=0.82, rely=0.5, anchor='center'
+            relx=0.82, rely=0.56, anchor='center'
         )
         
         self.l_capacity_tank = ctkl(
@@ -419,6 +419,32 @@ class Gui(ctk):
         self.l_free_space.place(
             relx=0.76, rely=0.77, anchor='center'
         )
+
+        self.l_inlet_flow_value = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text=f"Inlet Flow: {self.generator.gasoline.inlet_flow:.2f} L/s",
+            fg_color=color[1],
+            font=CTkFont(size=16)  # Set font size to 20
+        )
+
+        self.l_inlet_flow_value.place(
+            relx=0.5, rely=0.35, anchor='center'
+        )
+
+        self.l_output_flow_value = ctkl(
+            self.frame_right,
+            width=100,
+            height=20,
+            text=f"Output Flow: {self.generator.gasoline.output_flow:.2f} L/s",
+            fg_color=color[1],
+            font=CTkFont(size=16)  # Set font size to 20
+        )
+
+        self.l_output_flow_value.place(
+            relx=0.5, rely=0.48, anchor='center'
+        )
     
     def command_buttom_start_init(self):
         self.generator.start_input()
@@ -452,9 +478,13 @@ class Gui(ctk):
         self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
 
     def connect_entryTOinlet_flow(self):
-        newinlet_flow = float(self.entry_inlet_flow.get())
-        print(newinlet_flow)
+        new_inlet_flow = float(self.entry_inlet_flow.get())
+        self.generator.gasoline.inlet_flow = new_inlet_flow
+        self.l_inlet_flow_value.configure(text=f"Inlet Flow: {new_inlet_flow:.2f} L/s")
+        print(f"New inlet flow: {new_inlet_flow}")
 
     def connect_entryTOoutput_flow(self):
-        newoutput_flow = float(self.entry_output_flow.get())
-        print(newoutput_flow)
+        new_output_flow = float(self.entry_output_flow.get())
+        self.generator.gasoline.output_flow = new_output_flow
+        self.l_output_flow_value.configure(text=f"Output Flow: {new_output_flow:.2f} L/s")
+        print(f"New output flow: {new_output_flow}")
