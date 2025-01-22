@@ -194,7 +194,7 @@ class LoginDesign(ctk.CTk):
             gui = Gui()  # Import and create an instance of the Gui class
             gui.mainloop()
         else:
-            messagebox.showerror("Login Error", "Invalid email or password")  # Show error message
+            messagebox.showerror("Error de Inicio de Sesión", "Correo electrónico o contraseña inválidos")  # Show error message
 
     def new_user(self, color_border_sign):
         self.new_user_componete = ctktl()
@@ -321,8 +321,8 @@ class LoginDesign(ctk.CTk):
                 self.new_user_componete.destroy()
             except Exception as e:
                 if "UNIQUE constraint failed" in str(e):
-                    messagebox.showerror("Account Creation Error", "Email already exists")
+                    messagebox.showerror("Error de Creación de Cuenta", "El correo electrónico ya existe")
                 else:
-                    messagebox.showerror("Account Creation Error", "An error occurred while creating the account")
+                    messagebox.showerror("Error de Creación de Cuenta", "Ocurrió un error al crear la cuenta")
         else:
-            messagebox.showerror("Account Creation Error", "Passwords do not match")  # Show error message
+            messagebox.showerror("Error de Creación de Cuenta", "Las contraseñas no coinciden")  # Show error message

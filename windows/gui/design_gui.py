@@ -130,7 +130,7 @@ class Gui(ctk):
             self,
             width=90,
             height=30,
-            text="DASHBOARD",
+            text="Dashboard",
             fg_color="#222323",
             font=CTkFont(size=26, weight="bold")  # Set font size to 20 and make it bold
         )
@@ -257,7 +257,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="Control Panel",
+            text="Panel de Control",
             fg_color=color[1],
             font=CTkFont(size=22, weight="bold")  # Set font size to 20 and make it bold
         )
@@ -284,7 +284,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="Inlet Flow: ",
+            text="Flujo de Entrada: ",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -307,7 +307,7 @@ class Gui(ctk):
         
         self.b_apply_inlet = ctkb(
             self.frame_right,
-            text="Apply",
+            text="Aplicar",
             width=30,
             height=20,
             corner_radius=30,
@@ -323,7 +323,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="Output Flow: ",
+            text="Flujo de Salida: ",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -346,7 +346,7 @@ class Gui(ctk):
         
         self.b_apply_output = ctkb(
             self.frame_right,
-            text="Apply",
+            text="Aplicar",
             width=30,
             height=20,
             corner_radius=30,
@@ -362,7 +362,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text="Tank Capacity: ",
+            text="Capacidad: ",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -386,7 +386,7 @@ class Gui(ctk):
         
         self.b_apply_capacity = ctkb(
             self.frame_right,
-            text="Apply",
+            text="Aplicar",
             width=30,
             height=20,
             corner_radius=30,
@@ -402,7 +402,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text=f"Total Tank Capacity: {self.get_tank_capacity():.2f} L",
+            text=f"Capacidad Total del Tanque: {self.get_tank_capacity():.2f} L",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -428,7 +428,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text=f"Level: {self.get_tank_level():.2f} l",
+            text=f"Nivel: {self.get_tank_level():.2f} l",
             fg_color=color[1],
             font=CTkFont(size=12)  # Set font size to 20
         )
@@ -441,7 +441,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text=f"free space: {self.get_free_space():.2f} l",
+            text=f"Espacio Libre: {self.get_free_space():.2f} l",
             fg_color=color[1],
             font=CTkFont(size=12)  # Set font size to 20
         )
@@ -454,7 +454,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text=f"Inlet Flow: {self.generator.gasoline.inlet_flow:.2f} L/s",
+            text=f"Flujo de Entrada: {self.generator.gasoline.inlet_flow:.2f} L/s",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -467,7 +467,7 @@ class Gui(ctk):
             self.frame_right,
             width=100,
             height=20,
-            text=f"Output Flow: {self.generator.gasoline.output_flow:.2f} L/s",
+            text=f"Flujo de Salida: {self.generator.gasoline.output_flow:.2f} L/s",
             fg_color=color[1],
             font=CTkFont(size=16)  # Set font size to 20
         )
@@ -503,26 +503,26 @@ class Gui(ctk):
     def connect_entryTOcapacity(self):
         new_capacity = float(self.entry_capacity.get())
         self.modify_capacity(new_capacity)
-        self.l_capacity_tank.configure(text=f"Total Tank Capacity: {self.get_tank_capacity():.2f} L")
-        self.l_free_space.configure(text=f"Free space: {self.get_free_space():.2f} l")
-        self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
+        self.l_capacity_tank.configure(text=f"Capacidad Total del Tanque: {self.get_tank_capacity():.2f} L")
+        self.l_free_space.configure(text=f"Espacio Libre: {self.get_free_space():.2f} l")
+        self.l_level_tank.configure(text=f"Nivel: {self.get_tank_level():.2f} l")
         self.reset_graph()
 
     def connect_entryTOinlet_flow(self):
         new_inlet_flow = float(self.entry_inlet_flow.get())
         self.generator.gasoline.inlet_flow = new_inlet_flow
-        self.l_inlet_flow_value.configure(text=f"Inlet Flow: {new_inlet_flow:.2f} L/s")
+        self.l_inlet_flow_value.configure(text=f"Flujo de Entrada: {new_inlet_flow:.2f} L/s")
 
     def connect_entryTOoutput_flow(self):
         new_output_flow = float(self.entry_output_flow.get())
         self.generator.gasoline.output_flow = new_output_flow
-        self.l_output_flow_value.configure(text=f"Output Flow: {new_output_flow:.2f} L/s")
+        self.l_output_flow_value.configure(text=f"Flujo de Salida: {new_output_flow:.2f} L/s")
 
     def loop_level(self):
         while(True):
             time.sleep(1)
-            self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
-            self.l_free_space.configure(text=f"Free space: {self.get_free_space():.2f} l")
+            self.l_level_tank.configure(text=f"Nivel: {self.get_tank_level():.2f} l")
+            self.l_free_space.configure(text=f"Espacio Libre: {self.get_free_space():.2f} l")
 
     def reset_graph(self):
         self.frame_center.destroy()
@@ -538,12 +538,12 @@ class Gui(ctk):
         output_flow = self.generator.gasoline.output_flow
 
         info_message = (
-            f"Tank Capacity: {tank_capacity:.2f} L\n"
-            f"Tank Level: {tank_level:.2f} L\n"
-            f"Free Space: {free_space:.2f} L\n"
+            f"Capacidad del Tanque: {tank_capacity:.2f} L\n"
+            f"Nivel del Tanque: {tank_level:.2f} L\n"
+            f"Espacio Libre: {free_space:.2f} L\n"
             f"Ullage: {ullage:.2f} L\n"
-            f"Inlet Flow: {inlet_flow:.2f} L/s\n"
-            f"Output Flow: {output_flow:.2f} L/s"
+            f"Flujo de Entrada: {inlet_flow:.2f} L/s\n"
+            f"Flujo de Salida: {output_flow:.2f} L/s"
         )
 
         self.info = ctkid(
@@ -554,7 +554,7 @@ class Gui(ctk):
         )
         
         self.info.geometry("300x300")
-        self.info.title("System Info")
+        self.info.title("Información del Sistema")
         self.info.iconbitmap('.\pictures\index_3_.ico')
 
         self.info_label = ctkl(
