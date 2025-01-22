@@ -512,18 +512,17 @@ class Gui(ctk):
         new_inlet_flow = float(self.entry_inlet_flow.get())
         self.generator.gasoline.inlet_flow = new_inlet_flow
         self.l_inlet_flow_value.configure(text=f"Inlet Flow: {new_inlet_flow:.2f} L/s")
-        print(f"New inlet flow: {new_inlet_flow}")
 
     def connect_entryTOoutput_flow(self):
         new_output_flow = float(self.entry_output_flow.get())
         self.generator.gasoline.output_flow = new_output_flow
         self.l_output_flow_value.configure(text=f"Output Flow: {new_output_flow:.2f} L/s")
-        print(f"New output flow: {new_output_flow}")
 
     def loop_level(self):
         while(True):
             time.sleep(1)
             self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
+            self.l_free_space.configure(text=f"Free space: {self.get_free_space():.2f} l")
 
     def reset_graph(self):
         self.frame_center.destroy()

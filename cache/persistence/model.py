@@ -9,6 +9,7 @@ class Auth_User(Base):
     __tablename__ = "auth_user"
     id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(150))
+    email = Column(String(150), unique=True, nullable=False)  # Add email field
     password = Column(String(128))
 
     def __repr__(self):

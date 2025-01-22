@@ -54,7 +54,6 @@ class generate():
                 continue
             self.tank.tank_input(self.gasoline.inlet_flow/10)
             time.sleep(1/10)
-            print(self.tank.level)
 
     def loop_output(self):
         while(True):
@@ -63,7 +62,6 @@ class generate():
                 continue
             self.tank.tank_output(self.gasoline.output_flow/10)
             time.sleep(1/10)
-            print(self.tank.level)
             
 
 
