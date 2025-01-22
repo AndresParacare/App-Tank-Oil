@@ -2,6 +2,7 @@ import customtkinter as ctk
 from customtkinter import CTkToplevel as ctktl
 from windows.gui.design_gui import Gui # Import gui of application
 from PIL import Image
+from windows.gui.utility.custom_window import color_pallete
 
 #clase del diseño de la interfaz grafica de usuario
 class LoginDesign(ctk.CTk):
@@ -14,35 +15,19 @@ class LoginDesign(ctk.CTk):
         self.resizable(0,0)
 
         #Imagenes con formato data
-        picture_user_data = Image.open(
-            '.\pictures\person_13924070.png'
-        )
-
-        picture_password_data = Image.open(
-            '.\pictures\cerrar.png'
-        )
-
-        picture_google_data = Image.open(
-            '.\pictures\google-icon.png'
-        )
-        #picture_login_part_right_data = Image.open()
+        picture_logo_data = Image.open('./pictures/index_3_.png')
+        picture_user_data = Image.open('./pictures/person_13924070.png')
+        picture_password_data = Image.open('./pictures/cerrar.png')
+        picture_google_data = Image.open('./pictures/google-icon.png')
 
         #Imagenes transformadas a widgets
-        picture_user = ctk.CTkImage(
-            dark_image=picture_user_data,
-            light_image=picture_user_data
-        )
-        picture_password = ctk.CTkImage(
-            dark_image=picture_password_data,
-            light_image=picture_password_data
-        )
-
-        picture_google = ctk.CTkImage(
-            dark_image=picture_google_data,
-            light_image=picture_google_data
-        )
+        picture_logo = ctk.CTkImage(dark_image=picture_logo_data)
+        picture_user = ctk.CTkImage(dark_image=picture_user_data, light_image=picture_user_data)
+        picture_password = ctk.CTkImage(dark_image=picture_password_data, light_image=picture_password_data)
+        picture_google = ctk.CTkImage(dark_image=picture_google_data, light_image=picture_google_data)
 
         #Colores de los wdigets
+        color, fg_color_window = color_pallete()
         fg_colorsign = '#3498db'
         hover_colorsign =  "#E44982"
         text_colorsign = '#000000'
@@ -50,6 +35,9 @@ class LoginDesign(ctk.CTk):
 
         #posicion de los widgets de la izquierda
         padx = 90
+
+        # icon
+        self.iconbitmap('./pictures/index_3_.ico')
 
         #Frame de la izquierda
         self.image_left = ctk.CTkLabel(
@@ -184,8 +172,7 @@ class LoginDesign(ctk.CTk):
            text_color="#2a6cee",
            width=100,
            height=10,
-           command=self.new_user
-
+           command=lambda: self.new_user(color_border_sign)  # Pass the argument here
         ).pack(
             anchor="w", pady=(5, 0), padx=(padx-29, 0)
             )
@@ -203,8 +190,80 @@ class LoginDesign(ctk.CTk):
         else:
             print("Login failed")
         
-    class new_user():
-        def __init__(self):
-            self.new_user_componete = ctktl()
-            self.new_user_componete.geometry("500x400")
-            self.resizable(0,0)
+    def new_user(self, color_border_sign):
+        self.new_user_componete = ctktl()
+        self.new_user_componete.geometry("500x400")
+        self.resizable(0,0)
+        self.new_user_componete.title("New User")
+        self.new_user_componete.configure(bg="#2a6cee")
+            
+        # entry user
+        self.entry_user = ctk.CTkEntry(
+            master=self.new_user_componete,
+            width=225,
+            fg_color="#EEEEEE",
+            border_color=color_border_sign,
+            border_width=1,
+            text_color="#000000"
+        )
+        self.entry_user.pack(anchor="center", pady=(20, 10))
+
+        # entry email
+        self.entry_email = ctk.CTkEntry(
+            master=self.new_user_componete,
+            width=225,
+            fg_color="#EEEEEE",
+            border_color=color_border_sign,
+            border_width=1,
+            text_color="#000000"
+        )
+        self.entry_email.pack(anchor="center", pady=(10, 10))
+
+        # entry password
+        self.entry_password = ctk.CTkEntry(
+            master=self.new_user_componete,
+            width=225,
+            fg_color="#EEEEEE",
+            border_color=color_border_sign,
+            border_width=1,
+            text_color="#000000",
+            show="*"
+        )
+        self.entry_password.pack(anchor="center", pady=(10, 10))
+
+        # confirm password
+        self.entry_confirm_password = ctk.CTkEntry(
+            master=self.new_user_componete,
+            width=225,
+            fg_color="#EEEEEE",
+            border_color=color_border_sign,
+            border_width=1,
+            text_color="#000000",
+            show="*"
+        )
+        self.entry_confirm_password.pack(anchor="center", pady=(10, 20))
+
+        # create account button
+        self.button_create_account = ctk.CTkButton(
+            master=self.new_user_componete,
+            text="Crear Cuenta",
+            fg_color="#3498db",
+            hover_color="#2980b9",
+            font=("Arial Bold", 12),
+            text_color="#ffffff",
+            width=200,
+            command=self.create_account
+        )
+        self.button_create_account.pack(anchor="center", pady=(10, 10))
+
+    def create_account(self):
+        user = self.entry_user.get()
+        email = self.entry_email.get()
+        password = self.entry_password.get()
+        confirm_password = self.entry_confirm_password.get()
+
+        if password == confirm_password:
+            print(f"Account created for {user} with email {email}")
+            self.new_user_componete.destroy()
+        else:
+            print("Passwords do not match")

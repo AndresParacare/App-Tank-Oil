@@ -7,7 +7,6 @@ from customtkinter import CTkEntry as ctken # Import CTkEntry for the entry widg
 from customtkinter import CTkProgressBar as ctksb # Import CTkProgressBar for the progress bar widget
 from customtkinter import CTkToplevel as ctkid # Import CTkInputDialog for the input dialog widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
-#from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 from generate.generate import generate # funcionality of the buttoms
 from PIL import Image # library for image processing
 from typing import Union, Optional
@@ -29,8 +28,12 @@ class Gui(ctk):
         #Images with format
         picture_play_data = Image.open(".\pictures\play.png")
         picture_stop_data = Image.open(".\pictures\stop.png")
-
+        picture_logo_data = Image.open('.\pictures\index_3_.png')
         #Images to widgets
+        self.picture_logo = CTkImage(
+            picture_logo_data,
+            size=(50, 50)
+            )
         self.picture_play = CTkImage(
             dark_image=picture_play_data,
             light_image=picture_play_data
@@ -45,12 +48,8 @@ class Gui(ctk):
         color, fg_color_window = color_pallete()
 
         # icon 
-        #self. ICO = Image.open(".\pictures\icon.png")
-        #self.ICO = self.ICO.resize((32, 32))
-        #self.ICO = self.ICO.convert('RGB')
-        #self.ICO = ImageTk.PhotoImage(self.ICO)
-        #self.iconphoto(False, self.ICO)
-        
+        self.iconbitmap('.\pictures\index_3_.ico')
+
 
         #size window
         self.pl_x = -5
@@ -98,17 +97,32 @@ class Gui(ctk):
         )
         
         # Create a button ten frames to the left of the right edge of frame_up
-        #self.button_up_right = ctkb(
-        #    self.frame_up,
-        #    text="Logo",
-        #    width=100,
-        #    height=50,
-        #    corner_radius=0,
-        #    fg_color=color[1]
-        #)
-        #self.button_up_right.place(
-        #    relx=0.5, rely=0.5, anchor='center'  # Adjusted relx to 0.85
-        #)
+        self.logo = ctkl(
+            self.frame_up,
+            text="",
+            width=50,
+            height=50,
+            corner_radius=0,
+            fg_color=color[0],
+            image=self.picture_logo
+        )
+        self.logo.place(
+            relx=0.45, rely=0.5, anchor='center'  # Adjusted relx to 0.85
+        )
+
+        self.logo_titule = ctkl(
+            self.frame_up,
+            text="App Tank Oil",
+            width=150,
+            height=50,
+            corner_radius=0,
+            fg_color=color[0],
+            text_color=color[7],
+            font=("Arial", 20, "bold")
+            )
+        self.logo_titule.place(
+            relx=0.53, rely=0.5, anchor='center'
+            )
 
     def label_dasboard(self, color):
         """Create a label for identify dashboard"""
@@ -541,13 +555,15 @@ class Gui(ctk):
         )
         
         self.info.geometry("300x300")
+        self.info.title("System Info")
+        self.info.iconbitmap('.\pictures\index_3_.ico')
 
         self.info_label = ctkl(
             self.info,
             width=100,
             height=20,
             text=info_message,
-            font=CTkFont(size=12)  # Set font size to 20
+            font=CTkFont(size=12),  # Set font size to 20
         )
 
         self.info_label.place(
