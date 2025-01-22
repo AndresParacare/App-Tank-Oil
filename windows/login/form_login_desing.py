@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from customtkinter import CTkToplevel as ctktl
 from windows.gui.design_gui import Gui # Import gui of application
 from PIL import Image
 
@@ -182,7 +183,8 @@ class LoginDesign(ctk.CTk):
            font=("Arial Bold", 9),
            text_color="#2a6cee",
            width=100,
-           height=10
+           height=10,
+           command=self.new_user
 
         ).pack(
             anchor="w", pady=(5, 0), padx=(padx-29, 0)
@@ -200,3 +202,9 @@ class LoginDesign(ctk.CTk):
             gui.mainloop()
         else:
             print("Login failed")
+        
+    class new_user():
+        def __init__(self):
+            self.new_user_componete = ctktl()
+            self.new_user_componete.geometry("500x400")
+            self.resizable(0,0)
