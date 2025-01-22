@@ -524,6 +524,7 @@ class Gui(ctk):
         while(True):
             time.sleep(1)
             self.l_level_tank.configure(text=f"Level: {self.get_tank_level():.2f} l")
+            self.l_free_space.configure(text=f"Free space: {self.get_free_space():.2f} l")
 
     def reset_graph(self):
         self.frame_center.destroy()

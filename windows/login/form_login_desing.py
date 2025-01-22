@@ -3,7 +3,9 @@ from customtkinter import CTkToplevel as ctktl
 from windows.gui.design_gui import Gui # Import gui of application
 from PIL import Image
 from windows.gui.utility.custom_window import color_pallete
-
+from windows.login.util.encoding_decoding import encrypted, decrypt  # Import encoding/decoding functions
+from cache.persistence.repository.auth_user_repository import AuthUserRepositroy  # Import user repository
+from cache.persistence.model import Auth_User
 #clase del diseño de la interfaz grafica de usuario
 class LoginDesign(ctk.CTk):
     def __init__(self):
@@ -182,8 +184,11 @@ class LoginDesign(ctk.CTk):
         email = self.entry_email.get()
         password = self.entry_password.get()
         
-        # Placeholder for actual authentication logic
-        if email == "admin" and password == "admin":
+        # Use the repository to get the user
+        repo = AuthUserRepositroy()
+        user = repo.getUserByUserName(email)
+        
+        if user and decrypt(user.password) == password:
             print("Login successful")
             self.destroy()  # Close the login window
             gui = Gui()  # Import and create an instance of the Gui class
@@ -308,6 +313,10 @@ class LoginDesign(ctk.CTk):
         confirm_password = self.entry_confirm_password.get()
 
         if password == confirm_password:
+            encrypted_password = encrypted(password)
+            new_user = Auth_User(username=user, email=email, password=encrypted_password)
+            repo = AuthUserRepositroy()
+            repo.insertUser(new_user)
             print(f"Account created for {user} with email {email}")
             self.new_user_componete.destroy()
         else:

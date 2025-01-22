@@ -1,14 +1,13 @@
-
 import sqlalchemy as db
-from persistence.model import Auth_User
+from cache.persistence.model import Auth_User  # Correct the import path
 from sqlalchemy.orm import Session
-
+import os
 
 class AuthUserRepositroy():
 
     def __init__(self):
-        self.engine = db.create_engine('sqlite:///db/login.sqlite',
-                                       echo=False, future=True)
+        db_path = os.path.join(os.path.dirname(__file__), '../../db/login.sqlite')
+        self.engine = db.create_engine(f'sqlite:///{db_path}', echo=False, future=True)
 
     def getUserByUserName(self, user_name: str):
         user: Auth_User = None
