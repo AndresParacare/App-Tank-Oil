@@ -6,6 +6,7 @@ from windows.gui.utility.custom_window import color_pallete
 from windows.login.util.encoding_decoding import encrypted, decrypt  # Import encoding/decoding functions
 from cache.persistence.repository.auth_user_repository import AuthUserRepositroy  # Import user repository
 from cache.persistence.model import Auth_User
+from tkinter import messagebox  # Import messagebox
 
 # clase del diseño de la interfaz grafica de usuario
 class LoginDesign(ctk.CTk):
@@ -189,12 +190,11 @@ class LoginDesign(ctk.CTk):
         user = repo.getUserByUserName(email)
 
         if user and decrypt(user.password) == password:
-            print("Login successful")
             self.destroy()  # Close the login window
             gui = Gui()  # Import and create an instance of the Gui class
             gui.mainloop()
         else:
-            print("Login failed")
+            messagebox.showerror("Login Error", "Invalid email or password")  # Show error message
 
     def new_user(self, color_border_sign):
         self.new_user_componete = ctktl()
@@ -317,7 +317,6 @@ class LoginDesign(ctk.CTk):
             new_user = Auth_User(username=user, email=email, password=encrypted_password)
             repo = AuthUserRepositroy()
             repo.insertUser(new_user)
-            print(f"Account created for {user} with email {email}")
             self.new_user_componete.destroy()
         else:
-            print("Passwords do not match")
+            messagebox.showerror("Account Creation Error", "Passwords do not match")  # Show error message
