@@ -198,7 +198,7 @@ class LoginDesign(ctk.CTk):
 
     def new_user(self, color_border_sign):
         self.new_user_componete = ctktl()
-        self.new_user_componete.geometry("500x400")
+        self.new_user_componete.geometry("300x400")
         self.resizable(0, 0)
         self.new_user_componete.title("New User")
         self.new_user_componete.configure(bg="#2a6cee")
@@ -304,7 +304,7 @@ class LoginDesign(ctk.CTk):
             width=200,
             command=self.create_account
         )
-        self.button_create_account.place(x=25, y=300)
+        self.button_create_account.place(x=50, y=300)
 
     def create_account(self):
         user = self.entry_user.get()
