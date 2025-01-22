@@ -21,7 +21,7 @@ class LoginDesign(ctk.CTk):
         picture_google_data = Image.open('./pictures/google-icon.png')
 
         #Imagenes transformadas a widgets
-        picture_logo = ctk.CTkImage(dark_image=picture_logo_data)
+        picture_logo = ctk.CTkImage(dark_image=picture_logo_data, size=(100, 100), light_image=picture_logo_data)
         picture_user = ctk.CTkImage(dark_image=picture_user_data, light_image=picture_user_data)
         picture_password = ctk.CTkImage(dark_image=picture_password_data, light_image=picture_password_data)
         picture_google = ctk.CTkImage(dark_image=picture_google_data, light_image=picture_google_data)
@@ -45,8 +45,8 @@ class LoginDesign(ctk.CTk):
             text='',
             fg_color=fg_colorsign,
             width=400,
-            height=500
-            #image = picture_login_part_right
+            height=500,
+            image = picture_logo
         ).pack(
             expand=True, side="left"
         )
@@ -54,6 +54,7 @@ class LoginDesign(ctk.CTk):
         #Frame de la derecha
         self.frame = ctk.CTkFrame(
             self,
+            corner_radius=0,
             width=400,
             height=500,
             fg_color="#ffffff"
@@ -148,20 +149,20 @@ class LoginDesign(ctk.CTk):
             anchor="center", pady=(40, 0), padx=(0, 0)
         )
 
-        #Boton de google
-        self.buttom_google = ctk.CTkButton(
-           master=self.frame,
-           text="Login with Google",
-           fg_color="#EEEEEE",
-           hover_color="#EEEEEE",
-           font=("Arial Bold", 9),
-           text_color="#601E88",
-           width=275,
-           image=picture_google
-        ).pack(
-            anchor="center", pady=(20, 0), padx=(0, 0)
-            )
-        
+        # Remove the Google login button
+        # self.buttom_google = ctk.CTkButton(
+        #    master=self.frame,
+        #    text="Login with Google",
+        #    fg_color="#EEEEEE",
+        #    hover_color="#EEEEEE",
+        #    font=("Arial Bold", 9),
+        #    text_color="#601E88",
+        #    width=275,
+        #    image=picture_google
+        # ).pack(
+        #    anchor="center", pady=(20, 0), padx=(0, 0)
+        # )
+
         #Boton de nuevo usuario
         self.bottom_new_user = ctk.CTkButton(
            master=self.frame,
@@ -196,7 +197,18 @@ class LoginDesign(ctk.CTk):
         self.resizable(0,0)
         self.new_user_componete.title("New User")
         self.new_user_componete.configure(bg="#2a6cee")
-            
+        
+        # Label for user entry
+        self.label_user = ctk.CTkLabel(
+            master=self.new_user_componete,
+            text="Username:",
+            text_color="#ffffff",
+            anchor="w",
+            justify="left",
+            font=("Arial Bold", 14)
+        )
+        self.label_user.pack(anchor="center", pady=(10, 0))
+
         # entry user
         self.entry_user = ctk.CTkEntry(
             master=self.new_user_componete,
@@ -206,7 +218,18 @@ class LoginDesign(ctk.CTk):
             border_width=1,
             text_color="#000000"
         )
-        self.entry_user.pack(anchor="center", pady=(20, 10))
+        self.entry_user.pack(anchor="center", pady=(0, 10))
+
+        # Label for email entry
+        self.label_email = ctk.CTkLabel(
+            master=self.new_user_componete,
+            text="Email:",
+            text_color="#ffffff",
+            anchor="w",
+            justify="left",
+            font=("Arial Bold", 14)
+        )
+        self.label_email.pack(anchor="center", pady=(10, 0))
 
         # entry email
         self.entry_email = ctk.CTkEntry(
@@ -217,7 +240,18 @@ class LoginDesign(ctk.CTk):
             border_width=1,
             text_color="#000000"
         )
-        self.entry_email.pack(anchor="center", pady=(10, 10))
+        self.entry_email.pack(anchor="center", pady=(0, 10))
+
+        # Label for password entry
+        self.label_password = ctk.CTkLabel(
+            master=self.new_user_componete,
+            text="Password:",
+            text_color="#ffffff",
+            anchor="w",
+            justify="left",
+            font=("Arial Bold", 14)
+        )
+        self.label_password.pack(anchor="center", pady=(10, 0))
 
         # entry password
         self.entry_password = ctk.CTkEntry(
@@ -229,7 +263,18 @@ class LoginDesign(ctk.CTk):
             text_color="#000000",
             show="*"
         )
-        self.entry_password.pack(anchor="center", pady=(10, 10))
+        self.entry_password.pack(anchor="center", pady=(0, 10))
+
+        # Label for confirm password entry
+        self.label_confirm_password = ctk.CTkLabel(
+            master=self.new_user_componete,
+            text="Confirm Password:",
+            text_color="#ffffff",
+            anchor="w",
+            justify="left",
+            font=("Arial Bold", 14)
+        )
+        self.label_confirm_password.pack(anchor="center", pady=(10, 0))
 
         # confirm password
         self.entry_confirm_password = ctk.CTkEntry(
@@ -241,7 +286,7 @@ class LoginDesign(ctk.CTk):
             text_color="#000000",
             show="*"
         )
-        self.entry_confirm_password.pack(anchor="center", pady=(10, 20))
+        self.entry_confirm_password.pack(anchor="center", pady=(0, 20))
 
         # create account button
         self.button_create_account = ctk.CTkButton(
