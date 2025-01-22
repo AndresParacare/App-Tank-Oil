@@ -5,7 +5,7 @@ from customtkinter import CTkButton as ctkb # Import CTkButton for the button wi
 from customtkinter import CTkLabel as ctkl # Import CTkLabel for the label widget
 from customtkinter import CTkEntry as ctken # Import CTkEntry for the entry widget
 from customtkinter import CTkProgressBar as ctksb # Import CTkProgressBar for the progress bar widget
-from customtkinter import CTkInputDialog as ctkid # Import CTkInputDialog for the input dialog widget
+from customtkinter import CTkToplevel as ctkid # Import CTkInputDialog for the input dialog widget
 from windows.gui.utility.custom_window import color_pallete #Function for color pallete
 #from windows.gui.widget.graphTankModule import graph_oil_window #Function for graph tank module
 from generate.generate import generate # funcionality of the buttoms
@@ -535,7 +535,21 @@ class Gui(ctk):
 
         self.info = ctkid(
             #fg_color=self._fg_color,
-            title="System Info",
+            #title="System Info",
+            #text=info_message,
+            #fg_color=self._fg_color
+        )
+        
+        self.info.geometry("300x300")
+
+        self.info_label = ctkl(
+            self.info,
+            width=100,
+            height=20,
             text=info_message,
-            fg_color=self._fg_color
+            font=CTkFont(size=12)  # Set font size to 20
+        )
+
+        self.info_label.place(
+            relx=0.5, rely=0.5, anchor='center'
         )
