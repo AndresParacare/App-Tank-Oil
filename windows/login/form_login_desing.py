@@ -316,7 +316,13 @@ class LoginDesign(ctk.CTk):
             encrypted_password = encrypted(password)
             new_user = Auth_User(username=user, email=email, password=encrypted_password)
             repo = AuthUserRepositroy()
-            repo.insertUser(new_user)
-            self.new_user_componete.destroy()
+            try:
+                repo.insertUser(new_user)
+                self.new_user_componete.destroy()
+            except Exception as e:
+                if "UNIQUE constraint failed" in str(e):
+                    messagebox.showerror("Account Creation Error", "Email already exists")
+                else:
+                    messagebox.showerror("Account Creation Error", "An error occurred while creating the account")
         else:
             messagebox.showerror("Account Creation Error", "Passwords do not match")  # Show error message
