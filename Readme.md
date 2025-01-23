@@ -52,7 +52,7 @@ App Tank Oil is a graphical user interface (GUI) application for managing and mo
 - numpy
 - sqlalchemy
 
-## Image
+## Images
 
 <img src="./pictures/tank.png" alt="tank" width="500" height="300">
 <img src="./pictures/tank_full.png" alt="tank full" width="500" height="300">
