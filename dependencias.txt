@@ -1,6 +1,0 @@
-    customtkinter
-    PIL (Pillow)
-    matplotlib
-    seaborn
-    numpy
-    sqlalchemy
