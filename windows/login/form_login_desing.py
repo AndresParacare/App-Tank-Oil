@@ -8,42 +8,42 @@ from cache.persistence.repository.auth_user_repository import AuthUserRepositroy
 from cache.persistence.model import Auth_User
 from tkinter import messagebox  # Import messagebox
 
-# clase del diseño de la interfaz grafica de usuario
+# Class for the design of the graphical user interface
 class LoginDesign(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        # Ventana del login
+        # Login window
         self.title('Login')
         self.geometry('800x500')
         self.resizable(0, 0)
 
-        # Imagenes con formato data
+        # Images with data format
         picture_logo_data = Image.open('./pictures/index_3_.png')
         picture_user_data = Image.open('./pictures/person_13924070.png')
         picture_password_data = Image.open('./pictures/cerrar.png')
         picture_google_data = Image.open('./pictures/google-icon.png')
 
-        # Imagenes transformadas a widgets
+        # Images transformed into widgets
         picture_logo = ctk.CTkImage(dark_image=picture_logo_data, size=(100, 100), light_image=picture_logo_data)
         picture_user = ctk.CTkImage(dark_image=picture_user_data, light_image=picture_user_data)
         picture_password = ctk.CTkImage(dark_image=picture_password_data, light_image=picture_password_data)
         picture_google = ctk.CTkImage(dark_image=picture_google_data, light_image=picture_google_data)
 
-        # Colores de los widgets
+        # Widget colors
         color, fg_color_window = color_pallete()
         fg_colorsign = '#3498db'
         hover_colorsign = "#E44982"
         text_colorsign = '#000000'
         color_border_sign = '#eceff1'
 
-        # Posicion de los widgets de la izquierda
+        # Position of the left widgets
         padx = 90
 
         # Icon
         self.iconbitmap('./pictures/index_3_.ico')
 
-        # Frame de la izquierda
+        # Left frame
         self.image_left = ctk.CTkLabel(
             master=self,
             text='',
@@ -55,7 +55,7 @@ class LoginDesign(ctk.CTk):
             relx=0.5, rely=0.5, anchor='center'
         )
 
-        # Frame de la derecha
+        # Right frame
         self.frame = ctk.CTkFrame(
             self,
             corner_radius=20,
@@ -68,10 +68,10 @@ class LoginDesign(ctk.CTk):
             relx=0.5, rely=0.5, anchor='center'
         )
 
-        # Etiquetas de encabezado
+        # Header labels
         self.title_welcome = ctk.CTkLabel(
             master=self.frame,
-            text='Inicio de Sesion',
+            text='Login',
             text_color=text_colorsign,
             anchor='w',
             justify='left',
@@ -82,7 +82,7 @@ class LoginDesign(ctk.CTk):
 
         self.sign_in_to = ctk.CTkLabel(
             master=self.frame,
-            text='Ingresa a tu cuenta',
+            text='Sign in to your account',
             text_color='#7E7E7E',
             anchor="w",
             justify="left",
@@ -91,7 +91,7 @@ class LoginDesign(ctk.CTk):
             x=25, y=80
         )
 
-        # Ingreso del email
+        # Email entry
         self.label_email = ctk.CTkLabel(
             master=self.frame,
             text="  Email:",
@@ -114,7 +114,7 @@ class LoginDesign(ctk.CTk):
         )
         self.entry_email.place(x=padx, y=180)
 
-        # Ingreso del password
+        # Password entry
         self.label_password = ctk.CTkLabel(
             master=self.frame,
             text="  Password:",
@@ -138,7 +138,7 @@ class LoginDesign(ctk.CTk):
         )
         self.entry_password.place(x=padx, y=250)
 
-        # Botones de login
+        # Login button
         self.buttom_login = ctk.CTkButton(
             master=self.frame,
             text="Login",
@@ -166,10 +166,10 @@ class LoginDesign(ctk.CTk):
         #    x=padx, y=350
         # )
 
-        # Boton de nuevo usuario
+        # New user button
         self.bottom_new_user = ctk.CTkButton(
             master=self.frame,
-            text="Crear una nueva cuenta",
+            text="Create a new account",
             fg_color="#ffffff",
             hover_color="#ffffff",
             font=("Arial Bold", 9),
@@ -296,7 +296,7 @@ class LoginDesign(ctk.CTk):
         # Create account button
         self.button_create_account = ctk.CTkButton(
             master=self.new_user_componete,
-            text="Crear Cuenta",
+            text="Create Account",
             fg_color="#3498db",
             hover_color="#2980b9",
             font=("Arial Bold", 12),

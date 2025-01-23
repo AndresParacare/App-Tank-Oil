@@ -5,7 +5,7 @@
 App Tank Oil is a graphical user interface (GUI) application for managing and monitoring oil tank levels. The application allows users to log in, view tank levels, and control inlet and outlet flows.
 
 ## Features
-- User login
+- User login and authentication
 - Dashboard to monitor tank levels
 - Control panel to adjust inlet and outlet flows
 - Graphical representation of tank levels
@@ -30,7 +30,7 @@ App Tank Oil is a graphical user interface (GUI) application for managing and mo
     ```sh
     python main.py
     ```
-2. Log in using your credentials. If you don't have an account, create a new one using the "Crear una nueva cuenta" button.
+2. Log in using your credentials. If you don't have an account, create a new one using the "Create a new account" button or use "admin" as email and name.
 
 3. Use the dashboard to monitor and control the tank levels.
 
@@ -52,7 +52,16 @@ App Tank Oil is a graphical user interface (GUI) application for managing and mo
 - numpy
 - sqlalchemy
 
-## Images
+## Screenshots
 
-<img src="./pictures/tank.png" alt="tank" width="500" height="300">
-<img src="./pictures/tank_full.png" alt="tank full" width="500" height="300">
+### Tank Monitoring Dashboard
+<img src="./pictures/tank.png" alt="Tank Monitoring Dashboard" width="500" height="300">
+
+### Full Tank Alert
+<img src="./pictures/tank_full.png" alt="Full Tank Alert" width="500" height="300">
+
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
